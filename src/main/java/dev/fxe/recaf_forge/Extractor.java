@@ -47,7 +47,7 @@ public class Extractor {
             while (entry != null) {
                 String filePath = destDirectory + File.separator + entry.getName();
                 if (!entry.isDirectory()) {
-                    extractFile(filePath, zipIn);
+                    saveFile(Paths.get(filePath), IOUtils.toByteArray(zipIn));
                 } else {
                     File dir = new File(filePath);
                     dir.mkdirs();
@@ -61,15 +61,9 @@ public class Extractor {
         return exportDir;
     }
 
-    private static void extractFile(String filePath, ZipInputStream zipIn) throws IOException {
-        saveFile(Paths.get(filePath), IOUtils.toByteArray(zipIn));
-    }
-
     public static void saveFile(Path path, byte[] data) {
-
         try {
             Files.createDirectories(path.getParent());
-
             try (
                 final BufferedOutputStream out = new BufferedOutputStream(Files.newOutputStream(
                     path,
@@ -80,15 +74,12 @@ public class Extractor {
             }
         } catch (Exception ex) {
             ExceptionAlert.show(ex, "Failed to write file " + path);
-
         }
     }
 
     private static Path getExportDir() {
         File file = dirChooser.showDialog(null);
-        if (file != null) {
-            return Paths.get(file.getPath() + "/mdk/");
-        }
-        return null;
+        if (file == null) return null;
+        return Paths.get(file.getPath() + "/mdk/");
     }
 }

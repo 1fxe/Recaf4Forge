@@ -12,11 +12,13 @@ Inspired by [Luyten4Forge](https://github.com/KevinPriv/Luyten4Forge)
 ## What is this?
 
 This is a plugin for Recaf which can automatically detects a Minecraft Forge Mods version using the mcmod.info and
-applies the correct mapping. 
+applies the correct mapping. It also allows you to export the Forge MDK for the version.
 
 The mappings are stored in this jar file, so you don't have to manually find them.
 
-It currently works for 1.8, 1.8.9 and 1.9.4
+The mappings currently work for 1.8, 1.8.9 and 1.9.4
+
+The Forge MDK export works for 1.8.9 currently
 
 ### Example Usage
 
@@ -36,7 +38,7 @@ It currently works for 1.8, 1.8.9 and 1.9.4
 
 ## TODO
 
-- Extract source to relevant forge MDK
+- Add more warnings/notifications
 - Add support for other versions
 - Add translations?
 
