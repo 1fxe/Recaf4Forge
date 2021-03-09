@@ -5,7 +5,10 @@ import me.coley.recaf.ui.controls.ExceptionAlert;
 import org.apache.commons.io.IOUtils;
 import org.jline.utils.Log;
 
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,22 +23,23 @@ public class Extractor {
     private static final DirectoryChooser dirChooser = new DirectoryChooser();
 
     public static Path getResourcePath(String name, String resourcePath) {
+        Path resource = null;
         try (InputStream in = Extractor.class.getResourceAsStream(resourcePath)) {
             String[] strings = resourcePath.split("\\.");
             String suffix = strings[strings.length - 1];
-            if (in != null) {
-                String fileName = name == null ? String.valueOf(in.hashCode()) : name;
-                File tempFile = File.createTempFile(fileName, suffix);
-                tempFile.deleteOnExit();
-                saveFile(tempFile.toPath(), IOUtils.toByteArray(in));
-                return tempFile.toPath();
-            } else {
-                Log.info("InputStream is null");
+            if (in == null) {
+                Log.info("Failed to find resource");
+                return null;
             }
+            String fileName = name == null ? String.valueOf(in.hashCode()) : name;
+            File tempFile = File.createTempFile(fileName, suffix);
+            tempFile.deleteOnExit();
+            saveFile(tempFile.toPath(), IOUtils.toByteArray(in));
+            resource = tempFile.toPath();
         } catch (Exception ex) {
             ExceptionAlert.show(ex, "Failed to read resources");
         }
-        return null;
+        return resource;
     }
 
     public static Path extractMDK(Path mdkPath) {

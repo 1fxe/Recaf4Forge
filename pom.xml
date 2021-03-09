@@ -4,7 +4,7 @@
     <!-- Your personal package -->
     <groupId>dev.fxe</groupId>
     <artifactId>recaf4forge</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.5</version>
     <name>Recaf4Forge</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

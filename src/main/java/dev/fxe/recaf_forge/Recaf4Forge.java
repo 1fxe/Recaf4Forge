@@ -51,7 +51,7 @@ public class Recaf4Forge implements ConfigurablePlugin, MenuProviderPlugin, Work
 
     @Override
     public String getVersion() {
-        return "1.0";
+        return "1.0.5";
     }
 
     @Override
@@ -151,7 +151,7 @@ public class Recaf4Forge implements ConfigurablePlugin, MenuProviderPlugin, Work
         for (String version : versions) {
             itemList[index] = new ActionMenuItem(version, () -> {
                 currentVersion = version;
-                applyMapping();
+                CompletableFuture.runAsync(this::applyMapping, executor);
             });
             index++;
         }
