@@ -84,6 +84,6 @@ public class Extractor {
     private static Path getExportDir() {
         File file = dirChooser.showDialog(null);
         if (file == null) return null;
-        return Paths.get(file.getPath() + "/mdk/");
+        return Paths.get(file.getPath() + "/");
     }
 }

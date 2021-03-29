@@ -18,7 +18,7 @@ The mappings are stored in this jar file, so you don't have to manually find the
 
 The mappings currently work for 1.8, 1.8.9 and 1.9.4
 
-The Forge MDK export works for 1.8.9 currently
+The Forge MDK export works for 1.8.9 and 1.9.4 
 
 ### Example Usage
 
@@ -38,7 +38,7 @@ The Forge MDK export works for 1.8.9 currently
 
 ## TODO
 
-- Add more warnings/notifications
+- Notifications
 - Add support for other versions
 - Add translations?
 

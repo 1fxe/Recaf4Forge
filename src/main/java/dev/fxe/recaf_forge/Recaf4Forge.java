@@ -32,14 +32,15 @@ import java.util.concurrent.Executors;
 /**
  * @author Filip
  */
+@SuppressWarnings("unused")
 @Plugin(name = "Recaf4Forge")
 public class Recaf4Forge implements ConfigurablePlugin, MenuProviderPlugin, WorkspacePlugin, StartupPlugin {
 
     private final String[] versions = {"1.8", "1.8.9", "1.9.4"};
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private Workspace currentWorkspace = null;
-    private Controller controller;
     private String currentVersion = "";
+    private Controller controller;
 
     @Conf(value = "Automatically apply mappings", noTranslate = true)
     private boolean autoApply = false;
@@ -101,7 +102,7 @@ public class Recaf4Forge implements ConfigurablePlugin, MenuProviderPlugin, Work
             CompletableFuture.runAsync(() -> {
                 exportResources(extractedMDK);
                 exportSrc(extractedMDK);
-            }, executor);
+            });
         }
     }
 
@@ -109,7 +110,7 @@ public class Recaf4Forge implements ConfigurablePlugin, MenuProviderPlugin, Work
     private void exportResources(Path extractedMDK) {
         for (Map.Entry<String, byte[]> resources : currentWorkspace.getPrimary().getFiles().entrySet()) {
             String resourcePath =
-                extractedMDK.toString() + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + resources.getKey();
+                    extractedMDK.toString() + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + resources.getKey();
             Extractor.saveFile(Paths.get(resourcePath), resources.getValue());
         }
     }
@@ -118,7 +119,7 @@ public class Recaf4Forge implements ConfigurablePlugin, MenuProviderPlugin, Work
         for (Map.Entry<String, byte[]> resources : currentWorkspace.getPrimary().getClasses().entrySet()) {
             final String className = resources.getKey();
             String resourcePath =
-                extractedMDK.toString() + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator + className + ".java";
+                    extractedMDK.toString() + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator + className + ".java";
             byte[] code = DecompileImpl.CFR.create(this.controller).decompile(className).getBytes(StandardCharsets.UTF_8);
             Extractor.saveFile(Paths.get(resourcePath), code);
         }
@@ -167,5 +168,6 @@ public class Recaf4Forge implements ConfigurablePlugin, MenuProviderPlugin, Work
     @Override
     public void onStart(Controller controller) {
         this.controller = controller;
+
     }
 }

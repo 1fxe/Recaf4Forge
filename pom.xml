@@ -4,8 +4,32 @@
     <!-- Your personal package -->
     <groupId>dev.fxe</groupId>
     <artifactId>recaf4forge</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.9</version>
     <name>Recaf4Forge</name>
+    <profiles>
+        <profile>
+            <id>Windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <pluginDir>${user.home}/AppData/Roaming/Recaf/plugins</pluginDir>
+            </properties>
+        </profile>
+        <profile>
+            <id>Linux</id>
+            <activation>
+                <os>
+                    <family>Linux</family>
+                </os>
+            </activation>
+            <properties>
+                <pluginDir>${user.home}/Library/Preferences/Recaf/plugins</pluginDir>
+            </properties>
+        </profile>
+    </profiles>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -32,6 +56,15 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+            <!-- Move built jar into plugin dir -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <outputDirectory>${pluginDir}</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
