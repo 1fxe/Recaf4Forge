@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+    id "me.videogame.recaf" version "1.1"
+}
+
+group = 'dev.fxe'
+version = '1.1.0'
+description = 'Recaf4Forge'
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    implementation "com.github.Col-E:Recaf:2.18.3"
+}
+
+recaf{
+    mainClass("dev.fxe.recaf_forge.Recaf4Forge")
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

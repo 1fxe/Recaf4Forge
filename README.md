@@ -44,4 +44,6 @@ The Forge MDK export works for 1.8.9 and 1.9.4
 
 ### Contributing
 
-See [Contributing](CONTRIBUTING.md)
+Contributors are welcome 👍🏽
+
+Thanks [Recaf-development](https://github.com/videogame-player/recaf-development) for the gradle plugin
