@@ -19,20 +19,24 @@ jobs:
       PROPERTIES_PATH: gradle.properties
     steps:
     - uses: actions/checkout@v2.3.4
+
     - name: Step 1 - Setup JDK
     - uses: actions/setup-java@v1.4.3
       with:
         java-version: 1.8
+
     - name: Step 2 - Gradle build
     - uses: eskatos/gradle-command-action@v1
       with:
         arguments: build
+
     - name: Step 3 - Read version
       id: read_property
       uses: christian-draeger/read-properties@1.0.1
       with:
         path: ${{ env.PROPERTIES_PATH }}
         property: version
+
     - name: Step 4 - Release artifact
     - uses: actions/upload-artifact@v2
       with:
