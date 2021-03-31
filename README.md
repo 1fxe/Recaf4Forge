@@ -6,6 +6,7 @@ Inspired by [Luyten4Forge](https://github.com/KevinPriv/Luyten4Forge)
 
 ![VERSION](https://img.shields.io/github/v/release/1fxe/Recaf4Forge?style=flat-square)
 ![ISSUES](https://img.shields.io/github/issues/1fxe/Recaf4Forge?style=flat-square)
+[![Recaf4Forge Release](https://github.com/1fxe/Recaf4Forge/actions/workflows/release.yml/badge.svg)](https://github.com/1fxe/Recaf4Forge/actions/workflows/release.yml)
 
 </div>
 

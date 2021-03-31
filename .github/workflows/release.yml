@@ -2,7 +2,7 @@ name: Recaf4Forge Release
 
 on:
   push:
-    branches: [gradle]
+    branches: [master]
 
 jobs:
   validation:
@@ -51,5 +51,5 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       with:
-        args: v${{ steps.read_property.outputs.value }}
+        args: Recaf4Forge ${{ steps.read_property.outputs.value }}
 
