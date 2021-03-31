@@ -8,3 +8,4 @@ out
 # gradle
 build
 .gradle
+/.gradle/

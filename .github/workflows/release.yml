@@ -28,7 +28,7 @@ jobs:
       with:
         arguments: build
     - name: Step 3 - Read version
-      id: version
+      id: read_property
       uses: christian-draeger/read-properties@1.0.1
       with:
         path: ${{ env.PROPERTIES_PATH }}
@@ -36,5 +36,5 @@ jobs:
     - name: Step 4 - Release artifact
     - uses: actions/upload-artifact@v2
       with:
-        name: "Recaf4Forge"-${{ steps.version.outputs.value }}
+        name: Recaf4Forge-${{ steps.read_property.outputs.value }}
         path: build/libs/*.jar
