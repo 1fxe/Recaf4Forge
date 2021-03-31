@@ -28,5 +28,3 @@ tasks.withType(JavaCompile) {
 compileJava {
     source = processSource.outputs
 }
-
-tasks.build.dependsOn(tasks.clean)

@@ -9,8 +9,9 @@ jobs:
     name: "Post build - Validation"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: gradle/wrapper-validation-action@v1.3.3
+    - uses: actions/checkout@v2.3.4
+    - name: Gradle Wrapper Validation
+      uses: gradle/wrapper-validation-action@v1.0.3
 
   build:
     needs: validation
@@ -21,24 +22,26 @@ jobs:
     - uses: actions/checkout@v2.3.4
 
     - name: Step 1 - Setup JDK
-    - uses: actions/setup-java@v1.4.3
+      uses: actions/setup-java@v1.4.3
       with:
-        java-version: 1.8
+        java-version: 8
+        java-package: jdk+fx
 
-    - name: Step 2 - Gradle build
-    - uses: eskatos/gradle-command-action@v1
-      with:
-        arguments: build
+    - name: Step 2 - Grant execute permission for gradlew
+      run: chmod +x gradlew
 
-    - name: Step 3 - Read version
+    - name: Step 3 - Build with Gradle
+      run: ./gradlew build
+
+    - name: Step 4 - Read version
       id: read_property
-    - uses: christian-draeger/read-properties@1.0.1
+      uses: christian-draeger/read-properties@1.0.1
       with:
         path: ${{ env.PROPERTIES_PATH }}
         property: version
 
-    - name: Step 4 - Release artifact
-    - uses: actions/upload-artifact@v2
+    - name: Step 5 - Release artifact
+      uses: actions/upload-artifact@v2
       with:
         name: Recaf4Forge-${{ steps.read_property.outputs.value }}
         path: build/libs/*.jar
