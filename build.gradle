@@ -1,21 +1,32 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 plugins {
     id 'java'
-    id "me.videogame.recaf" version "1.1"
+    id "me.videogame.recaf" version "1.2"
 }
 
-group = 'dev.fxe'
-version = '1.1.0'
-description = 'Recaf4Forge'
+group = project.group
+version = project.version
+description = project.description
 sourceCompatibility = JavaVersion.VERSION_1_8
 
-dependencies {
-    implementation "com.github.Col-E:Recaf:2.18.3"
+recaf {
+    mainClass = project.mainClass
 }
 
-recaf{
-    mainClass("dev.fxe.recaf_forge.Recaf4Forge")
+task processSource(type: Sync) {
+    from sourceSets.main.java
+    inputs.property '@VERSION@', version
+    filter(ReplaceTokens, tokens: [VERSION: version])
+    into "$buildDir/src/"
 }
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+
+compileJava {
+    source = processSource.outputs
+}
+
+tasks.build.dependsOn(tasks.clean)
