@@ -40,8 +40,16 @@ jobs:
         path: ${{ env.PROPERTIES_PATH }}
         property: version
 
-    - name: Step 5 - Release artifact
+    - name: Step 5 - Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: Recaf4Forge-${{ steps.read_property.outputs.value }}
         path: build/libs/*.jar
+
+    - name: Step 6 - Create a Release
+      uses: elgohr/Github-Release-Action@master
+      env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      with:
+        args: v${{ steps.read_property.outputs.value }}
+
