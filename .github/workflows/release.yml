@@ -32,7 +32,7 @@ jobs:
 
     - name: Step 3 - Read version
       id: read_property
-      uses: christian-draeger/read-properties@1.0.1
+    - uses: christian-draeger/read-properties@1.0.1
       with:
         path: ${{ env.PROPERTIES_PATH }}
         property: version
