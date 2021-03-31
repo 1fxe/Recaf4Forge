@@ -1,22 +1,11 @@
-.metadata/**
-.recommenders/**
-.settings/**
-bin/**
-target/**
-**/psd/**
-*.class
-*.dtd
-*.sh
-*.bat
-*.lnk
-
-.classpath
-.project
-
-# IntelliJ IDEA Project stuff
-.idea/
-out/
+# idea
+out
+*.ipr
 *.iws
 *.iml
-*___jb_*___
-/target/
+.idea
+
+# gradle
+build
+.gradle
+/.gradle/

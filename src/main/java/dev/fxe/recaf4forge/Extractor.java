@@ -1,9 +1,8 @@
-package dev.fxe.recaf_forge;
+package dev.fxe.recaf4forge;
 
 import javafx.stage.DirectoryChooser;
 import me.coley.recaf.ui.controls.ExceptionAlert;
 import org.apache.commons.io.IOUtils;
-import org.jline.utils.Log;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -22,15 +21,23 @@ import java.util.zip.ZipInputStream;
 public class Extractor {
     private static final DirectoryChooser dirChooser = new DirectoryChooser();
 
+    /**
+     * Creates a temporary resource file from the jar
+     *
+     * @param name         file name
+     * @param resourcePath path to the resource in the plugin
+     * @return the path of the temp file
+     */
     public static Path getResourcePath(String name, String resourcePath) {
         Path resource = null;
         try (InputStream in = Extractor.class.getResourceAsStream(resourcePath)) {
-            String[] strings = resourcePath.split("\\.");
-            String suffix = strings[strings.length - 1];
             if (in == null) {
-                Log.info("Failed to find resource");
+                Recaf4Forge.info("Failed to find resource");
                 return null;
             }
+
+            String[] strings = resourcePath.split("\\.");
+            String suffix = strings[strings.length - 1];
             String fileName = name == null ? String.valueOf(in.hashCode()) : name;
             File tempFile = File.createTempFile(fileName, suffix);
             tempFile.deleteOnExit();
@@ -42,6 +49,12 @@ public class Extractor {
         return resource;
     }
 
+    /**
+     * Extracts the mdk from this plugin
+     *
+     * @param mdkPath the mdk (e.g 1_8_9)
+     * @return the path of the extracted mdk
+     */
     public static Path extractMDK(Path mdkPath) {
         Path exportDir = getExportDir();
         if (exportDir == null) return null;
@@ -65,14 +78,20 @@ public class Extractor {
         return exportDir;
     }
 
+    /**
+     * Saves a file to a specified location
+     *
+     * @param path location to save the file
+     * @param data the file data
+     */
     public static void saveFile(Path path, byte[] data) {
         try {
             Files.createDirectories(path.getParent());
             try (
-                final BufferedOutputStream out = new BufferedOutputStream(Files.newOutputStream(
-                    path,
-                    StandardOpenOption.CREATE,
-                    StandardOpenOption.APPEND))
+                    final BufferedOutputStream out = new BufferedOutputStream(Files.newOutputStream(
+                            path,
+                            StandardOpenOption.CREATE,
+                            StandardOpenOption.APPEND))
             ) {
                 out.write(data);
             }

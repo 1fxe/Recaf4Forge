@@ -1,0 +1,55 @@
+name: Recaf4Forge Release
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  validation:
+    name: "Post build - Validation"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.3.4
+    - name: Gradle Wrapper Validation
+      uses: gradle/wrapper-validation-action@v1.0.3
+
+  build:
+    needs: validation
+    runs-on: ubuntu-latest
+    env:
+      PROPERTIES_PATH: gradle.properties
+    steps:
+    - uses: actions/checkout@v2.3.4
+
+    - name: Step 1 - Setup JDK
+      uses: actions/setup-java@v1.4.3
+      with:
+        java-version: 8
+        java-package: jdk+fx
+
+    - name: Step 2 - Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Step 3 - Build with Gradle
+      run: ./gradlew build
+
+    - name: Step 4 - Read version
+      id: read_property
+      uses: christian-draeger/read-properties@1.0.1
+      with:
+        path: ${{ env.PROPERTIES_PATH }}
+        property: version
+
+    - name: Step 5 - Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Recaf4Forge-${{ steps.read_property.outputs.value }}
+        path: build/libs/*.jar
+
+    - name: Step 6 - Create a Release
+      uses: elgohr/Github-Release-Action@master
+      env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      with:
+        args: Recaf4Forge ${{ steps.read_property.outputs.value }}
+

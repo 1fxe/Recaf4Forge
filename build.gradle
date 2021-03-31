@@ -1,0 +1,30 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'java'
+    id "me.videogame.recaf" version "1.2"
+}
+
+group = project.group
+version = project.version
+description = project.description
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+recaf {
+    mainClass = project.mainClass
+}
+
+task processSource(type: Sync) {
+    from sourceSets.main.java
+    inputs.property '@VERSION@', version
+    filter(ReplaceTokens, tokens: [VERSION: version])
+    into "$buildDir/src/"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+compileJava {
+    source = processSource.outputs
+}
