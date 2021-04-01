@@ -58,5 +58,5 @@ jobs:
         release_token: ${{ secrets.RELEASE_TOKEN }}
         release_tag: v${{ steps.read_property.outputs.value }}
         release_title: Recaf4Forge-${{ steps.read_property.outputs.value }}
-        release_file: recaf4forge-${{ steps.read_property.outputs.value }}.jar
+        release_file: build/libs/recaf4forge-${{ steps.read_property.outputs.value }}.jar
 
