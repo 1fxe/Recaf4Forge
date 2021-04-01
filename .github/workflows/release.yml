@@ -47,12 +47,6 @@ jobs:
         path: build/libs/*.jar
 
     - name: Step 6 - Create a Release
-      uses: elgohr/Github-Release-Action@master
-      env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-      with:
-        args: Recaf4Forge ${{ steps.read_property.outputs.value }}
-    - name: Step 6 - Create a Release
       uses: 1fxe/GitHub-Release-Action@main
       with:
         release_token: ${{ secrets.RELEASE_TOKEN }}
