@@ -52,4 +52,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       with:
         args: Recaf4Forge ${{ steps.read_property.outputs.value }}
+    - name: Step 6 - Create a Release
+      uses: 1fxe/GitHub-Release-Action@main
+      with:
+        release_token: ${{ secrets.RELEASE_TOKEN }}
+        release_tag: v${{ steps.read_property.outputs.value }}
+        release_title: Recaf4Forge-${{ steps.read_property.outputs.value }}
+        release_file: recaf4forge-${{ steps.read_property.outputs.value }}.jar
 
