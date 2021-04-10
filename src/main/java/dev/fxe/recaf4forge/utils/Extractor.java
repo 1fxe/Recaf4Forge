@@ -1,5 +1,6 @@
-package dev.fxe.recaf4forge;
+package dev.fxe.recaf4forge.utils;
 
+import dev.fxe.recaf4forge.Recaf4Forge;
 import javafx.stage.DirectoryChooser;
 import me.coley.recaf.ui.controls.ExceptionAlert;
 import org.apache.commons.io.IOUtils;
@@ -41,7 +42,7 @@ public class Extractor {
             String fileName = name == null ? String.valueOf(in.hashCode()) : name;
             File tempFile = File.createTempFile(fileName, suffix);
             tempFile.deleteOnExit();
-            saveFile(tempFile.toPath(), IOUtils.toByteArray(in));
+            Extractor.saveFile(tempFile.toPath(), IOUtils.toByteArray(in));
             resource = tempFile.toPath();
         } catch (Exception ex) {
             ExceptionAlert.show(ex, "Failed to read resources");
@@ -56,7 +57,7 @@ public class Extractor {
      * @return the path of the extracted mdk
      */
     public static Path extractMDK(Path mdkPath) {
-        Path exportDir = getExportDir();
+        Path exportDir = Extractor.getExportDir();
         if (exportDir == null) return null;
         String destDirectory = exportDir.toString();
         try (ZipInputStream zipIn = new ZipInputStream(new FileInputStream(mdkPath.toFile()))) {
@@ -64,7 +65,7 @@ public class Extractor {
             while (entry != null) {
                 String filePath = destDirectory + File.separator + entry.getName();
                 if (!entry.isDirectory()) {
-                    saveFile(Paths.get(filePath), IOUtils.toByteArray(zipIn));
+                    Extractor.saveFile(Paths.get(filePath), IOUtils.toByteArray(zipIn));
                 } else {
                     File dir = new File(filePath);
                     dir.mkdirs();
@@ -101,7 +102,7 @@ public class Extractor {
     }
 
     private static Path getExportDir() {
-        File file = dirChooser.showDialog(null);
+        File file = Extractor.dirChooser.showDialog(null);
         if (file == null) return null;
         return Paths.get(file.getPath() + "/");
     }

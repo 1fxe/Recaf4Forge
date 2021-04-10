@@ -1,8 +1,7 @@
-package dev.fxe.recaf4forge;
+package dev.fxe.recaf4forge.utils;
 
 public class BuildInfo {
 
-    public static final String[] versions = {"1.8", "1.8.9", "1.9.4"};
     public static final String version = "@VERSION@";
     public static final String name = "Recaf4Forge";
     public static final String description =
