@@ -21,11 +21,14 @@ The mappings and mdks are stored in this jar file, so you don't have to manually
 
 **Supported Versions**
 
-Version | Mappings | MDK
+**Version** | **Mappings** | **MDK**
  --- | --- | --- 
-**1.8** | ✔ | ❌
-**1.8.9** | ✔ | ✔
-**1.9.4** | ✔ | ✔
+**1.8** | :heavy_check_mark: | :x:
+**1.8.9** | :heavy_check_mark: | :heavy_check_mark:
+**1.9.4** | :heavy_check_mark: | :heavy_check_mark:
+**1.12.2** | :heavy_check_mark: | :heavy_check_mark:
+**1.14.4** | :x: | :x:
+**More planned** | | 
 
 ### Config
 
