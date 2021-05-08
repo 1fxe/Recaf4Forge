@@ -108,7 +108,7 @@ public class Recaf4Forge implements ConfigurablePlugin, MenuProviderPlugin, Work
 
 	private void applyMapping() {
 		MappingImpl mappingIml = Versions.MAP.get(this.currentVersion);
-		String path = this.exporter.getPluginResource(this.currentVersion, "/mappings." + mappingIml);
+		String path = this.exporter.getPluginResource(this.currentVersion, ("/mappings." + mappingIml).toLowerCase());
 		Path mappingPath = Extractor.getResourcePath(null, path);
 		if (mappingPath == null) {
 			Recaf4Forge.info("Could not find mappings, is the resource null?");
