@@ -12,7 +12,6 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 
 recaf {
     mainClass = project.mainClass
-    recafVersion = "2.19.5"
 }
 
 task processSource(type: Sync) {
