@@ -129,8 +129,6 @@ public class Recaf4Forge implements ConfigurablePlugin, MenuProviderPlugin, Work
 				MainWindow window = MainWindow.get((GuiController) this.getController());
 				ThreadUtil.checkJfxAndEnqueue(() -> {
 					for (Tab tab : window.getTabs().getTabs()) {
-						Recaf4Forge.info(tab.getText());
-						Recaf4Forge.info(tab.getClass().getName());
 						if (tab.getContent() instanceof ClassViewport) {
 							ClassViewport classViewport = (ClassViewport) tab.getContent();
 							classViewport.updateView();
