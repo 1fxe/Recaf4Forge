@@ -20,7 +20,6 @@ import me.coley.recaf.plugin.api.WorkspacePlugin;
 import me.coley.recaf.ui.MainWindow;
 import me.coley.recaf.ui.controls.ActionMenuItem;
 import me.coley.recaf.ui.controls.ExceptionAlert;
-import me.coley.recaf.ui.controls.node.ClassNodeEditorPane;
 import me.coley.recaf.ui.controls.view.ClassViewport;
 import me.coley.recaf.util.Log;
 import me.coley.recaf.util.ThreadUtil;
@@ -29,7 +28,6 @@ import me.coley.recaf.workspace.Workspace;
 import org.plugface.core.annotations.Plugin;
 
 import java.nio.file.Path;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -39,7 +37,6 @@ import static dev.fxe.recaf4forge.utils.BuildInfo.*;
 /**
  * @author Filip
  */
-@SuppressWarnings("unused")
 @Plugin(name = name)
 public class Recaf4Forge implements ConfigurablePlugin, MenuProviderPlugin, WorkspacePlugin, StartupPlugin {
 
@@ -51,10 +48,10 @@ public class Recaf4Forge implements ConfigurablePlugin, MenuProviderPlugin, Work
 	private Controller controller;
 
 	@Conf(value = "Automatically apply mappings", noTranslate = true)
-	private boolean autoApply = false;
+	private final boolean autoApply = false;
 
 	@Conf(value = "Notifications", noTranslate = true)
-	private boolean notify = false;
+	private final boolean notify = false;
 
 	@Override
 	public String getName() {
