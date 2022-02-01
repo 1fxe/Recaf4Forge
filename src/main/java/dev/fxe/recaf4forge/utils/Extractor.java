@@ -68,7 +68,8 @@ public class Extractor {
                     Extractor.saveFile(Paths.get(filePath), IOUtils.toByteArray(zipIn));
                 } else {
                     File dir = new File(filePath);
-                    dir.mkdirs();
+                    if (dir.mkdirs()) System.out.println("Success.");
+                    else System.out.println("Something went wrong.");
                 }
                 zipIn.closeEntry();
                 entry = zipIn.getNextEntry();

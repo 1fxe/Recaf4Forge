@@ -4,9 +4,9 @@ import me.coley.recaf.mapping.MappingImpl;
 
 import java.util.HashMap;
 
-public class Versions {
+class Versions {
 
-	public static final HashMap<String, MappingImpl> MAP = new HashMap<String, MappingImpl>(){
+	protected static final HashMap<String, MappingImpl> MAP = new HashMap<String, MappingImpl>(){
 		{
 			this.put("1.7.10", MappingImpl.SRG);
 			this.put("1.8", MappingImpl.SRG);

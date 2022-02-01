@@ -1,13 +1,13 @@
 pluginManagement {
     repositories {
         mavenLocal()
-        maven { url "https://jitpack.io/" }
-        maven { url "http://files.minecraftforge.net/maven" }
+        maven { url = 'https://jitpack.io' }
+        maven { url = 'https://files.minecraftforge.net/maven' }
         gradlePluginPortal()
     }
     resolutionStrategy {
         eachPlugin {
-            if (requested.id.id == "me.videogame.recaf") {
+            if (requested.id.id == 'me.videogame.recaf') {
                 useModule("com.github.videogame-player:recaf-development:${requested.version}")
             }
         }

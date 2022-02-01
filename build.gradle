@@ -2,7 +2,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
     id 'java'
-    id "me.videogame.recaf" version "1.3"
+    id 'me.videogame.recaf' version '1.3'
 }
 
 group = project.group
@@ -12,7 +12,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 
 recaf {
     mainClass = project.mainClass
-    recafVersion = "2.21.4"
+    recafVersion = '2.21.4'
 }
 
 task processSource(type: Sync) {
@@ -22,10 +22,7 @@ task processSource(type: Sync) {
     into "$buildDir/src/"
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
 compileJava {
     source = processSource.outputs
+    options.encoding = 'UTF-8'
 }

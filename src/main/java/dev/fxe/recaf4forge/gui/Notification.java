@@ -11,7 +11,7 @@ import me.coley.recaf.ui.controls.popup.DragPopup;
 
 public class Notification extends DragPopup {
 
-    public Notification(Node content, Control handle) {
+    private Notification(Node content, Control handle) {
         super(content, handle);
     }
 
