@@ -7,6 +7,7 @@ import dev.fxe.recaf4forge.utils.Exporter;
 import dev.fxe.recaf4forge.utils.Extractor;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
 import me.coley.recaf.config.Conf;
 import me.coley.recaf.control.Controller;
 import me.coley.recaf.control.gui.GuiController;
@@ -19,7 +20,10 @@ import me.coley.recaf.plugin.api.WorkspacePlugin;
 import me.coley.recaf.ui.MainWindow;
 import me.coley.recaf.ui.controls.ActionMenuItem;
 import me.coley.recaf.ui.controls.ExceptionAlert;
+import me.coley.recaf.ui.controls.node.ClassNodeEditorPane;
+import me.coley.recaf.ui.controls.view.ClassViewport;
 import me.coley.recaf.util.Log;
+import me.coley.recaf.util.ThreadUtil;
 import me.coley.recaf.util.struct.ListeningMap;
 import me.coley.recaf.workspace.Workspace;
 import org.plugface.core.annotations.Plugin;
@@ -107,6 +111,7 @@ public class Recaf4Forge implements ConfigurablePlugin, MenuProviderPlugin, Work
 	}
 
 	private void applyMapping() {
+		if (this.currentWorkspace == null) return;
 		MappingImpl mappingIml = Versions.MAP.get(this.currentVersion);
 		String path = this.exporter.getPluginResource(this.currentVersion, ("/mappings." + mappingIml).toLowerCase());
 		Path mappingPath = Extractor.getResourcePath(null, path);
@@ -120,9 +125,20 @@ public class Recaf4Forge implements ConfigurablePlugin, MenuProviderPlugin, Work
 			mappings.setCheckMethodHierarchy(true);
 			mappings.accept(this.currentWorkspace.getPrimary());
 			Recaf4Forge.info("Finished applying mappings");
-			if (this.getController() instanceof GuiController && this.notify) {
+			if (this.getController() instanceof GuiController) {
 				MainWindow window = MainWindow.get((GuiController) this.getController());
-				Notification.create(this.getName() + " Mappings", "Successfully applied mappings!").show(window.getRoot());
+				ThreadUtil.checkJfxAndEnqueue(() -> {
+					for (Tab tab : window.getTabs().getTabs()) {
+						if (tab.getContent() instanceof ClassViewport) {
+							ClassViewport classViewport = (ClassViewport) tab.getContent();
+							classViewport.updateView();
+						}
+					}
+				});
+
+				if (this.notify) {
+					Notification.create(this.getName() + " Mappings", "Successfully applied mappings!").show(window.getRoot());
+				}
 			}
 		} catch (Exception ex) {
 			ExceptionAlert.show(ex, this.getName() + " Failed to apply mappings");
