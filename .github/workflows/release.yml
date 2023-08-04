@@ -40,8 +40,7 @@ jobs:
         path: ${{ env.PROPERTIES_PATH }}
         property: version
 
-    - name: Step 6 - Create a Release
-    - uses: actions/upload-artifact@v3
+    - uses: 1fxe/GitHub-Release-Action@main
       with:
-        name: Recaf4Forge.jar
-        path: build/libs/Recaf4Forge-${{ steps.read_property.outputs.value }}.jar
+        release_token: ${{ secrets.RELEASE_TOKEN }}
+        release_tag: v${{ steps.read_property.outputs.value }}
