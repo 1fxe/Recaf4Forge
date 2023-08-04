@@ -2,7 +2,7 @@ name: Recaf4Forge Release
 
 on:
   push:
-    branches: [master]
+    branches: [dev]
 
 jobs:
   validation:
