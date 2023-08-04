@@ -41,10 +41,7 @@ jobs:
         property: version
 
     - name: Step 6 - Create a Release
-      uses: 1fxe/GitHub-Release-Action@main
+    - uses: actions/upload-artifact@v3
       with:
-        release_token: ${{ secrets.RELEASE_TOKEN }}
-        release_tag: v${{ steps.read_property.outputs.value }}
-        release_title: Recaf4Forge-${{ steps.read_property.outputs.value }}
-        release_file: build/libs/Recaf4Forge-${{ steps.read_property.outputs.value }}.jar
-
+        name: Recaf4Forge.jar
+        path: build/libs/Recaf4Forge-${{ steps.read_property.outputs.value }}.jar
